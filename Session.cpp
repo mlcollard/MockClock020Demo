@@ -44,13 +44,13 @@ public:
 class Session {
 public:
     // constructor
-    Session()
-        : start_time(std::time(nullptr))
+    Session(const Clock& clock = TimeClock())
+        : clock(clock), start_time(clock.start())
     {}
 
     // stop the session
     void stop() {
-        stop_time = std::time(nullptr);
+        stop_time = clock.now();
     }
 
     // elapsed time in seconds of the stopped session
@@ -59,6 +59,7 @@ public:
     }
 
 private:
+    const Clock& clock;
     std::time_t start_time;
     std::time_t stop_time;
 };
