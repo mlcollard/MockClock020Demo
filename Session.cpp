@@ -23,6 +23,12 @@ namespace {
     }
 }
 
+class Clock {
+public:
+    virtual std::time_t start() const = 0;
+    virtual std::time_t now() const = 0;
+};
+
 class Session {
 public:
     // constructor
