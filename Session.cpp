@@ -88,6 +88,19 @@ public:
     }
 };
 
+template <int Length>
+class MockClock : public Clock {
+public:
+
+    virtual std::time_t start() const {
+        return 0;
+    }
+
+    virtual std::time_t now() const {
+        return Length;
+    }
+};
+
 int main() {
 
     // 2-second session
@@ -109,6 +122,14 @@ int main() {
     // Hour session
     {
         HourClock clock;
+        Session s(clock);
+        s.stop();
+        assert(SessionReport::displayTime(s.seconds()) == "01:00:00");
+    }
+
+    // Hour session
+    {
+        MockClock<3600> clock;
         Session s(clock);
         s.stop();
         assert(SessionReport::displayTime(s.seconds()) == "01:00:00");
