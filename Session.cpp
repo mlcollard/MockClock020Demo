@@ -29,6 +29,18 @@ public:
     virtual std::time_t now() const = 0;
 };
 
+class TimeClock : public Clock {
+public:
+
+    virtual std::time_t start() const {
+        return now();
+    }
+
+    virtual std::time_t now() const {
+        return std::time(nullptr);
+    }
+};
+
 class Session {
 public:
     // constructor
