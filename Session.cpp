@@ -76,6 +76,18 @@ public:
     }
 };
 
+class HourClock : public Clock {
+public:
+
+    virtual std::time_t start() const {
+        return 0;
+    }
+
+    virtual std::time_t now() const {
+        return 60 * 60;
+    }
+};
+
 int main() {
 
     // 2-second session
@@ -92,6 +104,14 @@ int main() {
         Session s(clock);
         s.stop();
         assert(SessionReport::displayTime(s.seconds()) == "00:00:02");
+    }
+
+    // Hour session
+    {
+        HourClock clock;
+        Session s(clock);
+        s.stop();
+        assert(SessionReport::displayTime(s.seconds()) == "01:00:00");
     }
 
     return 0;
